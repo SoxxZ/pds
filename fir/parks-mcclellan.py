@@ -5,11 +5,11 @@ import matplotlib.pyplot as plt
 def plot_response(fs, w, h, title):
     plt.figure()
     plt.plot(0.5*fs*w/np.pi, 20*np.log10(np.abs(h)))
-    plt.ylim(-40, 5)
+    plt.ylim(-130, 5)
     plt.xlim(0, 0.5*fs)
     plt.grid(True)
-    plt.xlabel('Frequency (Hz)')
-    plt.ylabel('Gain (dB)')
+    plt.xlabel('Frequência (Hz)')
+    plt.ylabel('Magnitude (dB)')
     plt.title(title)
 
 
@@ -23,5 +23,5 @@ n = 59      # ordem do filtro
 hn = signal.remez(n, [0, cutoff - transb, cutoff, 0.5*fs], mo, W, Hz=fs)
 w, h = signal.freqz(hn)
 
-plot_response(fs, w, h, "High-pass Filter")
+plot_response(fs, w, h, "Filtro Passa-Alta")
 plt.show()
