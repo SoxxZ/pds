@@ -84,3 +84,42 @@ plt.plot(yy_freq, yy_mag)
 
 
 plt.show()
+
+
+
+
+
+
+
+
+xx = abs(np.fft.fft(x))
+xx = signal.decimate(xx,10)
+
+xx_mag = xx[:int((len(xx)/2))]
+xx_mag = 20*np.log10(np.abs(xx_mag))
+xx_mag = np.interp(xx_mag,[np.amin(xx_mag), np.amax(xx_mag)], [-np.amax(xx_mag),0])
+xx_freq = np.arange(len(xx[:int((len(xx)/2))]))
+
+yy = abs(np.fft.fft(y))
+yy = signal.decimate(yy,10)
+yy_mag = yy[:int((len(yy)/2))]
+yy_mag = 20*np.log10(np.abs(yy_mag))
+yy_mag = np.interp(yy_mag,[np.amin(yy_mag), np.amax(yy_mag)], [-np.amax(yy_mag),0])
+yy_freq = np.arange(len(yy[:int((len(yy)/2))]))
+
+plot_response(fs, w, h, "Filtro Passa-Alta")
+
+plt.figure()
+plt.xlabel('Frequência (Hz)')
+plt.ylabel('Magnitude (dB)')
+plt.title("Sinal de Entrada")
+plt.xlim(20, 20000)
+plt.plot(xx_freq, xx_mag)
+
+plt.figure()
+plt.xlabel('Frequência (Hz)')
+plt.ylabel('Magnitude (dB)')
+plt.title("Sinal de Saída")
+plt.xlim(20, 20000)
+plt.plot(yy_freq, yy_mag)
+
